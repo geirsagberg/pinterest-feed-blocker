@@ -1,81 +1,134 @@
-/* Pinterest Feed Blocker CSS - Pure CSS blocking approach */
+/* Pinterest Feed Blocker CSS - Block by default, only show when unblocked */
 
-/* Main feed blocking */
-html[data-pinterest-blocker-enabled="true"] [data-test-id="homefeed-feed"],
-html[data-pinterest-blocker-enabled="true"] [data-test-id="grid"],
-html[data-pinterest-blocker-enabled="true"] [data-test-id="masonry"],
-html[data-pinterest-blocker-enabled="true"] .mainContainer .homefeedContainer,
-html[data-pinterest-blocker-enabled="true"] .ReactVirtualized__Grid,
-html[data-pinterest-blocker-enabled="true"] .gridCentered {
-    display: none !important;
-    visibility: hidden !important;
+/* Main feed blocking - block by default */
+[data-test-id='homefeed-feed'],
+[data-test-id='grid'],
+[data-test-id='masonry'],
+.mainContainer .homefeedContainer,
+.ReactVirtualized__Grid,
+.gridCentered {
+  display: none !important;
+  visibility: hidden !important;
 }
 
-/* Board recommendations blocking */
-html[data-pinterest-blocker-enabled="true"] .moreIdeasOnBoard,
-html[data-pinterest-blocker-enabled="true"] [data-test-id="board-recommendations"],
-html[data-pinterest-blocker-enabled="true"] [data-test-id="board-ideas"],
-html[data-pinterest-blocker-enabled="true"] .boardRecommendations,
-html[data-pinterest-blocker-enabled="true"] .ideaRecommendations,
-html[data-pinterest-blocker-enabled="true"] .recommendationsContainer,
-html[data-pinterest-blocker-enabled="true"] a[href*="more-ideas"],
-html[data-pinterest-blocker-enabled="true"] h3[title*="Find some ideas"],
-html[data-pinterest-blocker-enabled="true"] .gcw:has(a[href*="more-ideas"]) {
-    display: none !important;
-    visibility: hidden !important;
+/* Show when unblock attribute is present */
+html[data-pinterest-unblock='true'] [data-test-id='homefeed-feed'],
+html[data-pinterest-unblock='true'] [data-test-id='grid'],
+html[data-pinterest-unblock='true'] [data-test-id='masonry'],
+html[data-pinterest-unblock='true'] .mainContainer .homefeedContainer,
+html[data-pinterest-unblock='true'] .ReactVirtualized__Grid,
+html[data-pinterest-unblock='true'] .gridCentered {
+  display: block !important;
+  visibility: visible !important;
 }
 
-/* Related pins and suggestions blocking */
-html[data-pinterest-blocker-enabled="true"] [data-test-id="related-pins"],
-html[data-pinterest-blocker-enabled="true"] [data-test-id="more-ideas"],
-html[data-pinterest-blocker-enabled="true"] [data-test-id="similar-pins"],
-html[data-pinterest-blocker-enabled="true"] [data-test-id="relatedPins"],
-html[data-pinterest-blocker-enabled="true"] .relatedPins,
-html[data-pinterest-blocker-enabled="true"] .moreLikeThis,
-html[data-pinterest-blocker-enabled="true"] .similarPins,
-html[data-pinterest-blocker-enabled="true"] .closeupRecommendations,
-html[data-pinterest-blocker-enabled="true"] .IdeasYouMightLove,
-html[data-pinterest-blocker-enabled="true"] .C00:has(.X8m:contains("Ideas you might love")) {
-    display: none !important;
-    visibility: hidden !important;
+/* Board recommendations blocking - block by default */
+.moreIdeasOnBoard,
+[data-test-id='board-recommendations'],
+[data-test-id='board-ideas'],
+.boardRecommendations,
+.ideaRecommendations,
+.recommendationsContainer,
+a[href*='more-ideas'],
+h3[title*='Find some ideas'],
+.gcw:has(a[href*='more-ideas']) {
+  display: none !important;
+  visibility: hidden !important;
 }
 
-/* Hide elements containing specific text patterns */
-html[data-pinterest-blocker-enabled="true"] *[aria-label*="ideas" i],
-html[data-pinterest-blocker-enabled="true"] *[aria-label*="recommendations" i],
-html[data-pinterest-blocker-enabled="true"] *[aria-label*="similar" i],
-html[data-pinterest-blocker-enabled="true"] *[title*="Ideas you might love" i],
-html[data-pinterest-blocker-enabled="true"] *[title*="More like this" i],
-html[data-pinterest-blocker-enabled="true"] *[title*="Similar ideas" i] {
-    display: none !important;
-    visibility: hidden !important;
+/* Show when unblock attribute is present */
+html[data-pinterest-unblock='true'] .moreIdeasOnBoard,
+html[data-pinterest-unblock='true'] [data-test-id='board-recommendations'],
+html[data-pinterest-unblock='true'] [data-test-id='board-ideas'],
+html[data-pinterest-unblock='true'] .boardRecommendations,
+html[data-pinterest-unblock='true'] .ideaRecommendations,
+html[data-pinterest-unblock='true'] .recommendationsContainer,
+html[data-pinterest-unblock='true'] a[href*='more-ideas'],
+html[data-pinterest-unblock='true'] h3[title*='Find some ideas'],
+html[data-pinterest-unblock='true'] .gcw:has(a[href*='more-ideas']) {
+  display: block !important;
+  visibility: visible !important;
 }
 
-/* Additional selectors for dynamic content */
-html[data-pinterest-blocker-enabled="true"] .BoardHeader + div[style*="grid"],
-html[data-pinterest-blocker-enabled="true"] .BoardHeader ~ div[style*="grid"] {
-    display: none !important;
-    visibility: hidden !important;
+/* Related pins and suggestions blocking - block by default */
+[data-test-id='related-pins'],
+[data-test-id='more-ideas'],
+[data-test-id='similar-pins'],
+[data-test-id='relatedPins'],
+[data-test-id='relatedPins'] [role='list'] [role='listitem']:not(:first-child),
+.relatedPins,
+.moreLikeThis,
+.similarPins,
+.closeupRecommendations,
+.IdeasYouMightLove,
+.C00:has(.X8m:contains('Ideas you might love')) {
+  display: none !important;
+  visibility: hidden !important;
 }
 
-/* Text-based blocking using CSS :contains() where supported */
-html[data-pinterest-blocker-enabled="true"] .X8m:contains("Ideas you might love"),
-html[data-pinterest-blocker-enabled="true"] .X8m:contains("More like this"),
-html[data-pinterest-blocker-enabled="true"] .X8m:contains("Similar ideas"),
-html[data-pinterest-blocker-enabled="true"] h3:contains("Find some ideas") {
-    display: none !important;
-    visibility: hidden !important;
+/* Show when unblock attribute is present */
+html[data-pinterest-unblock='true'] [data-test-id='related-pins'],
+html[data-pinterest-unblock='true'] [data-test-id='more-ideas'],
+html[data-pinterest-unblock='true'] [data-test-id='similar-pins'],
+html[data-pinterest-unblock='true'] [data-test-id='relatedPins'],
+html[data-pinterest-unblock='true']
+  [data-test-id='relatedPins']
+  [role='list']
+  [role='listitem']:not(:first-child),
+html[data-pinterest-unblock='true'] .relatedPins,
+html[data-pinterest-unblock='true'] .moreLikeThis,
+html[data-pinterest-unblock='true'] .similarPins,
+html[data-pinterest-unblock='true'] .closeupRecommendations,
+html[data-pinterest-unblock='true'] .IdeasYouMightLove,
+html[data-pinterest-unblock='true']
+  .C00:has(.X8m:contains('Ideas you might love')) {
+  display: block !important;
+  visibility: visible !important;
 }
 
-/* Container blocking for text-based elements */
-html[data-pinterest-blocker-enabled="true"] div:has(.X8m:contains("Ideas you might love")),
-html[data-pinterest-blocker-enabled="true"] div:has(h3:contains("Find some ideas")) {
-    display: none !important;
-    visibility: hidden !important;
+/* Hide elements containing specific text patterns - block by default */
+*[aria-label*='ideas' i],
+*[aria-label*='recommendations' i],
+*[aria-label*='similar' i],
+*[title*='Ideas you might love' i],
+*[title*='More like this' i],
+*[title*='Similar ideas' i] {
+  display: none !important;
+  visibility: hidden !important;
 }
 
-/* Fallback for grid containers */
-html[data-pinterest-blocker-enabled="true"] div[style*="display: grid"][style*="grid-template-columns"]:not([data-test-id="closeup-body"] div) {
-    display: none !important;
-    visibility: hidden !important;
+/* Additional selectors for dynamic content - block by default */
+.BoardHeader + div[style*='grid'],
+.BoardHeader ~ div[style*='grid'] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Text-based blocking using CSS :contains() where supported - block by default */
+.X8m:contains('Ideas you might love'),
+.X8m:contains('More like this'),
+.X8m:contains('Similar ideas'),
+h3:contains('Find some ideas') {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Container blocking for text-based elements - block by default */
+div:has(.X8m:contains('Ideas you might love')),
+div:has(h3:contains('Find some ideas')) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Fallback for grid containers - block by default */
+div[style*='display: grid'][style*='grid-template-columns']:not(
+    [data-test-id='closeup-body'] div
+  ) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+[role='listitem']:not(:has([data-test-id='closeup-body'])) {
+  display: none !important;
+  visibility: hidden !important;
 }

@@ -1,30 +1,38 @@
 // Pinterest Feed Blocker Content Script
-(function() {
-    'use strict';
+;(function () {
+  'use strict'
 
-    let isEnabled = true;
+  let isUnblocked = false
 
-    // Function to toggle blocking state
-    function toggleBlocking(enabled) {
-        isEnabled = enabled;
-        // Set the HTML attribute to control CSS blocking
-        document.documentElement.setAttribute('data-pinterest-blocker-enabled', enabled.toString());
+  // Function to set the unblock attribute
+  function setUnblockAttribute() {
+    if (isUnblocked) {
+      document.documentElement.setAttribute('data-pinterest-unblock', 'true')
+    } else {
+      document.documentElement.removeAttribute('data-pinterest-unblock')
     }
+  }
 
-    // Set blocking enabled by default immediately (before storage loads)
-    document.documentElement.setAttribute('data-pinterest-blocker-enabled', 'true');
+  // Function to toggle unblock state
+  function toggleUnblock(unblock) {
+    isUnblocked = unblock
+    setUnblockAttribute()
+  }
 
-    // Load initial state from storage and update if needed
-    chrome.storage.sync.get(['enabled'], function(result) {
-        isEnabled = result.enabled !== false; // default to true
-        document.documentElement.setAttribute('data-pinterest-blocker-enabled', isEnabled.toString());
-    });
+  // By default, content is blocked (no attribute set)
+  // Content only shows when data-pinterest-unblock="true" is present
 
-    // Listen for messages from popup
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.action === 'toggleBlocking') {
-            toggleBlocking(request.enabled);
-            sendResponse({ success: true });
-        }
-    });
-})();
+  // Listen for messages from popup
+  chrome.runtime.onMessage.addListener(function (
+    request,
+    sender,
+    sendResponse
+  ) {
+    if (request.action === 'toggleUnblock') {
+      toggleUnblock(request.unblock)
+      sendResponse({ success: true, isUnblocked: isUnblocked })
+    } else if (request.action === 'getState') {
+      sendResponse({ isUnblocked: isUnblocked })
+    }
+  })
+})()
