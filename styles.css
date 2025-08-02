@@ -1,6 +1,6 @@
-/* Pinterest Feed Blocker CSS - Only apply when blocker is enabled */
+/* Pinterest Feed Blocker CSS - Pure CSS blocking approach */
 
-/* Only apply blocking styles when the blocker is enabled */
+/* Main feed blocking */
 html[data-pinterest-blocker-enabled="true"] [data-test-id="homefeed-feed"],
 html[data-pinterest-blocker-enabled="true"] [data-test-id="grid"],
 html[data-pinterest-blocker-enabled="true"] [data-test-id="masonry"],
@@ -19,7 +19,8 @@ html[data-pinterest-blocker-enabled="true"] .boardRecommendations,
 html[data-pinterest-blocker-enabled="true"] .ideaRecommendations,
 html[data-pinterest-blocker-enabled="true"] .recommendationsContainer,
 html[data-pinterest-blocker-enabled="true"] a[href*="more-ideas"],
-html[data-pinterest-blocker-enabled="true"] h3[title*="Find some ideas"] {
+html[data-pinterest-blocker-enabled="true"] h3[title*="Find some ideas"],
+html[data-pinterest-blocker-enabled="true"] .gcw:has(a[href*="more-ideas"]) {
     display: none !important;
     visibility: hidden !important;
 }
@@ -28,11 +29,13 @@ html[data-pinterest-blocker-enabled="true"] h3[title*="Find some ideas"] {
 html[data-pinterest-blocker-enabled="true"] [data-test-id="related-pins"],
 html[data-pinterest-blocker-enabled="true"] [data-test-id="more-ideas"],
 html[data-pinterest-blocker-enabled="true"] [data-test-id="similar-pins"],
+html[data-pinterest-blocker-enabled="true"] [data-test-id="relatedPins"],
 html[data-pinterest-blocker-enabled="true"] .relatedPins,
 html[data-pinterest-blocker-enabled="true"] .moreLikeThis,
 html[data-pinterest-blocker-enabled="true"] .similarPins,
 html[data-pinterest-blocker-enabled="true"] .closeupRecommendations,
-html[data-pinterest-blocker-enabled="true"] .IdeasYouMightLove {
+html[data-pinterest-blocker-enabled="true"] .IdeasYouMightLove,
+html[data-pinterest-blocker-enabled="true"] .C00:has(.X8m:contains("Ideas you might love")) {
     display: none !important;
     visibility: hidden !important;
 }
@@ -40,7 +43,10 @@ html[data-pinterest-blocker-enabled="true"] .IdeasYouMightLove {
 /* Hide elements containing specific text patterns */
 html[data-pinterest-blocker-enabled="true"] *[aria-label*="ideas" i],
 html[data-pinterest-blocker-enabled="true"] *[aria-label*="recommendations" i],
-html[data-pinterest-blocker-enabled="true"] *[aria-label*="similar" i] {
+html[data-pinterest-blocker-enabled="true"] *[aria-label*="similar" i],
+html[data-pinterest-blocker-enabled="true"] *[title*="Ideas you might love" i],
+html[data-pinterest-blocker-enabled="true"] *[title*="More like this" i],
+html[data-pinterest-blocker-enabled="true"] *[title*="Similar ideas" i] {
     display: none !important;
     visibility: hidden !important;
 }
@@ -52,8 +58,24 @@ html[data-pinterest-blocker-enabled="true"] .BoardHeader ~ div[style*="grid"] {
     visibility: hidden !important;
 }
 
-/* Fallback for any grid containers on Pinterest */
-html[data-pinterest-blocker-enabled="true"] div[style*="display: grid"][style*="grid-template-columns"] {
+/* Text-based blocking using CSS :contains() where supported */
+html[data-pinterest-blocker-enabled="true"] .X8m:contains("Ideas you might love"),
+html[data-pinterest-blocker-enabled="true"] .X8m:contains("More like this"),
+html[data-pinterest-blocker-enabled="true"] .X8m:contains("Similar ideas"),
+html[data-pinterest-blocker-enabled="true"] h3:contains("Find some ideas") {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Container blocking for text-based elements */
+html[data-pinterest-blocker-enabled="true"] div:has(.X8m:contains("Ideas you might love")),
+html[data-pinterest-blocker-enabled="true"] div:has(h3:contains("Find some ideas")) {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Fallback for grid containers */
+html[data-pinterest-blocker-enabled="true"] div[style*="display: grid"][style*="grid-template-columns"]:not([data-test-id="closeup-body"] div) {
     display: none !important;
     visibility: hidden !important;
 }
