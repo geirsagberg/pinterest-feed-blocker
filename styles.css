@@ -1,0 +1,59 @@
+/* Pinterest Feed Blocker CSS */
+
+/* Main feed blocking */
+[data-test-id="homefeed-feed"],
+[data-test-id="grid"],
+[data-test-id="masonry"],
+.mainContainer .homefeedContainer,
+.ReactVirtualized__Grid,
+.gridCentered {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Board recommendations blocking */
+.moreIdeasOnBoard,
+[data-test-id="board-recommendations"],
+[data-test-id="board-ideas"],
+.boardRecommendations,
+.ideaRecommendations,
+.recommendationsContainer,
+a[href*="more-ideas"],
+h3[title*="Find some ideas"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Related pins and suggestions blocking */
+[data-test-id="related-pins"],
+[data-test-id="more-ideas"],
+[data-test-id="similar-pins"],
+.relatedPins,
+.moreLikeThis,
+.similarPins,
+.closeupRecommendations,
+.IdeasYouMightLove {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Hide elements containing specific text patterns */
+*[aria-label*="ideas" i],
+*[aria-label*="recommendations" i],
+*[aria-label*="similar" i] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Additional selectors for dynamic content */
+.BoardHeader + div[style*="grid"],
+.BoardHeader ~ div[style*="grid"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Fallback for any grid containers on Pinterest */
+div[style*="display: grid"][style*="grid-template-columns"] {
+    display: none !important;
+    visibility: hidden !important;
+}
