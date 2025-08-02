@@ -2,11 +2,45 @@
 (function() {
     'use strict';
 
+    let isEnabled = true;
+    let hiddenElements = new Set();
+
     // Function to hide elements
     function hideElement(element) {
-        if (element) {
+        if (element && isEnabled) {
             element.style.display = 'none !important';
             element.style.visibility = 'hidden !important';
+            element.setAttribute('data-pinterest-blocker-hidden', 'true');
+            hiddenElements.add(element);
+        }
+    }
+
+    // Function to show elements
+    function showElement(element) {
+        if (element) {
+            element.style.display = '';
+            element.style.visibility = '';
+            element.removeAttribute('data-pinterest-blocker-hidden');
+            hiddenElements.delete(element);
+        }
+    }
+
+    // Function to toggle all hidden elements
+    function toggleAllElements(enabled) {
+        isEnabled = enabled;
+        
+        // Set the HTML attribute to control CSS
+        document.documentElement.setAttribute('data-pinterest-blocker-enabled', enabled.toString());
+        
+        if (enabled) {
+            // Re-run blocking
+            runBlocking();
+        } else {
+            // Show all hidden elements
+            hiddenElements.forEach(element => {
+                showElement(element);
+            });
+            hiddenElements.clear();
         }
     }
 
@@ -140,11 +174,27 @@
         blockRelatedImages();
     }
 
-    // Run blocking on page load
-    runBlocking();
+    // Load initial state from storage
+    chrome.storage.sync.get(['enabled'], function(result) {
+        isEnabled = result.enabled !== false; // default to true
+        document.documentElement.setAttribute('data-pinterest-blocker-enabled', isEnabled.toString());
+        if (isEnabled) {
+            runBlocking();
+        }
+    });
+
+    // Listen for messages from popup
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        if (request.action === 'toggleBlocking') {
+            toggleAllElements(request.enabled);
+            sendResponse({ success: true });
+        }
+    });
 
     // Create observer to handle dynamic content
     const observer = new MutationObserver(function(mutations) {
+        if (!isEnabled) return;
+        
         let shouldRun = false;
         mutations.forEach(function(mutation) {
             if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
@@ -175,6 +225,10 @@
         }, 10);
     }
 
-    // Run blocking periodically for any missed content
-    setInterval(runBlocking, 1000);
+    // Run blocking periodically for any missed content (only if enabled)
+    setInterval(() => {
+        if (isEnabled) {
+            runBlocking();
+        }
+    }, 1000);
 })();

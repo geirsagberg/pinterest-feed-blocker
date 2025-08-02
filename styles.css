@@ -1,59 +1,59 @@
-/* Pinterest Feed Blocker CSS */
+/* Pinterest Feed Blocker CSS - Only apply when blocker is enabled */
 
-/* Main feed blocking */
-[data-test-id="homefeed-feed"],
-[data-test-id="grid"],
-[data-test-id="masonry"],
-.mainContainer .homefeedContainer,
-.ReactVirtualized__Grid,
-.gridCentered {
+/* Only apply blocking styles when the blocker is enabled */
+html[data-pinterest-blocker-enabled="true"] [data-test-id="homefeed-feed"],
+html[data-pinterest-blocker-enabled="true"] [data-test-id="grid"],
+html[data-pinterest-blocker-enabled="true"] [data-test-id="masonry"],
+html[data-pinterest-blocker-enabled="true"] .mainContainer .homefeedContainer,
+html[data-pinterest-blocker-enabled="true"] .ReactVirtualized__Grid,
+html[data-pinterest-blocker-enabled="true"] .gridCentered {
     display: none !important;
     visibility: hidden !important;
 }
 
 /* Board recommendations blocking */
-.moreIdeasOnBoard,
-[data-test-id="board-recommendations"],
-[data-test-id="board-ideas"],
-.boardRecommendations,
-.ideaRecommendations,
-.recommendationsContainer,
-a[href*="more-ideas"],
-h3[title*="Find some ideas"] {
+html[data-pinterest-blocker-enabled="true"] .moreIdeasOnBoard,
+html[data-pinterest-blocker-enabled="true"] [data-test-id="board-recommendations"],
+html[data-pinterest-blocker-enabled="true"] [data-test-id="board-ideas"],
+html[data-pinterest-blocker-enabled="true"] .boardRecommendations,
+html[data-pinterest-blocker-enabled="true"] .ideaRecommendations,
+html[data-pinterest-blocker-enabled="true"] .recommendationsContainer,
+html[data-pinterest-blocker-enabled="true"] a[href*="more-ideas"],
+html[data-pinterest-blocker-enabled="true"] h3[title*="Find some ideas"] {
     display: none !important;
     visibility: hidden !important;
 }
 
 /* Related pins and suggestions blocking */
-[data-test-id="related-pins"],
-[data-test-id="more-ideas"],
-[data-test-id="similar-pins"],
-.relatedPins,
-.moreLikeThis,
-.similarPins,
-.closeupRecommendations,
-.IdeasYouMightLove {
+html[data-pinterest-blocker-enabled="true"] [data-test-id="related-pins"],
+html[data-pinterest-blocker-enabled="true"] [data-test-id="more-ideas"],
+html[data-pinterest-blocker-enabled="true"] [data-test-id="similar-pins"],
+html[data-pinterest-blocker-enabled="true"] .relatedPins,
+html[data-pinterest-blocker-enabled="true"] .moreLikeThis,
+html[data-pinterest-blocker-enabled="true"] .similarPins,
+html[data-pinterest-blocker-enabled="true"] .closeupRecommendations,
+html[data-pinterest-blocker-enabled="true"] .IdeasYouMightLove {
     display: none !important;
     visibility: hidden !important;
 }
 
 /* Hide elements containing specific text patterns */
-*[aria-label*="ideas" i],
-*[aria-label*="recommendations" i],
-*[aria-label*="similar" i] {
+html[data-pinterest-blocker-enabled="true"] *[aria-label*="ideas" i],
+html[data-pinterest-blocker-enabled="true"] *[aria-label*="recommendations" i],
+html[data-pinterest-blocker-enabled="true"] *[aria-label*="similar" i] {
     display: none !important;
     visibility: hidden !important;
 }
 
 /* Additional selectors for dynamic content */
-.BoardHeader + div[style*="grid"],
-.BoardHeader ~ div[style*="grid"] {
+html[data-pinterest-blocker-enabled="true"] .BoardHeader + div[style*="grid"],
+html[data-pinterest-blocker-enabled="true"] .BoardHeader ~ div[style*="grid"] {
     display: none !important;
     visibility: hidden !important;
 }
 
 /* Fallback for any grid containers on Pinterest */
-div[style*="display: grid"][style*="grid-template-columns"] {
+html[data-pinterest-blocker-enabled="true"] div[style*="display: grid"][style*="grid-template-columns"] {
     display: none !important;
     visibility: hidden !important;
 }

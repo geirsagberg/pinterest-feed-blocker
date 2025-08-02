@@ -3,7 +3,11 @@
   "name": "Pinterest Feed Blocker",
   "version": "1.0",
   "description": "Blocks Pinterest main feed, recommendations, and related images to reduce distractions",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Pinterest Feed Blocker"
+  },
   "content_scripts": [
     {
       "matches": ["*://*.pinterest.com/*"],
