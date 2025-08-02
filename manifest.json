@@ -12,8 +12,7 @@
     {
       "matches": ["*://*.pinterest.com/*"],
       "js": ["content.js"],
-      "css": ["styles.css"],
-      "run_at": "document_start"
+      "css": ["styles.css"]
     }
   ],
   "icons": {
